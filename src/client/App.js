@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import '../../assets/style.css';
+import { Helmet } from 'react-helmet';
+import './style.css';
 
 
 const initialPosts = [
@@ -12,7 +13,7 @@ const initialPosts = [
 
         user: {
 
-        avatar: './public/avatar1.png',
+        avatar: './avatar1.png',
 
         username: 'Test User'
 
@@ -28,7 +29,7 @@ const initialPosts = [
 
         user: {
 
-        avatar: './public/avatar2.png',
+        avatar: './avatar2.png',
 
         username: 'Test User 2'
 
@@ -45,12 +46,47 @@ const initialPosts = [
 const App = () => {
 
     const [posts, setPosts] = useState(initialPosts);
+    const [postContent, setPostContent] = useState('');
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const newPost = {
+          id: posts.length + 1,
+          text: postContent,
+          user: {
+              avatar: '/uploads/avatar1.png',
+              username: 'Fake User'
+          }
+      };
+      setPosts([newPost, ...posts]);
+      setPostContent('');
+  };
 
     return (
     
       <div className="container">
+            <Helmet>
+                <title>Graphbook - Feed</title>
+                <meta name="description" content="Newsfeed of all your friends on Graphbook" />
+            </Helmet>
+      
+      <div className="postForm">
+
+        <form onSubmit={handleSubmit}>                      
+
+          <textarea value={postContent} onChange={(e) =>
+
+             setPostContent(e.target.value)}
+
+            placeholder="Write your custom post!"/>
+
+          <input type="submit" value="Submit" />
+
+        </form>
+
+      </div>
     
-        <div className="feed">
+      <div className="feed">
     
           { initialPosts.map((post, i) =>
     
