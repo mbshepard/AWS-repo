@@ -10,74 +10,73 @@ const outputDirectory = buildDirectory + '/client';
 
 module.exports = {
 
-  mode: 'development',
+  mode: 'development',
 
-  entry: './src/client/index.js',
+  entry: './src/client/index.js',
 
-  output: {
+  output: {
 
-    path: path.join(__dirname, outputDirectory),
+    path: path.join(__dirname, outputDirectory),
 
-    filename: 'bundle.js'
+    filename: 'bundle.js'
 
-  },
+  },
 
-  module: {
+  module: {
 
-    rules: [
+    rules: [
 
-      {
+      {
 
-        test: /\.js$/,
+        test: /\.js$/,
 
-        exclude: /node_modules/,
+        exclude: /node_modules/,
 
-        use: {
+        use: {
 
-          loader: 'babel-loader'
+          loader: 'babel-loader'
 
-        }
+        }
 
-      },
+      },
 
-      {
+      {
 
-        test: /\.css$/,
+        test: /\.css$/,
 
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader']
 
-      }
-    ,
+      }
 
-    ]
+    ]
 
-  },
+  },
 
-  devServer: {
+  devServer: {
+    allowedHosts: ['ec2-44-204-158-89.compute-1.amazonaws.com'],
 
-    allowedHosts: ['ec2-52-23-206-214.compute-1.amazonaws.com'],
-    port: 3000,
+    port: 3000,
 
-    open: true
+    open: true
 
-  },
+  },
 
-  plugins: [
+  plugins: [
 
-    new CleanWebpackPlugin({
+    new CleanWebpackPlugin({
 
-      cleanOnceBeforeBuildPatterns: [path.join(__dirname,
+      cleanOnceBeforeBuildPatterns: [path.join(__dirname,
 
-      buildDirectory)]
+      buildDirectory)]
 
-    }),
+    }),
 
-    new HtmlWebpackPlugin({
+    new HtmlWebpackPlugin({
 
-      template: './public/index.html'
+      template: './public/index.html'
 
-    })
+    })
 
-  ]
+  ]
 
 };
